@@ -1,0 +1,1 @@
+*/10 * * * * python3 manage.py substract_holds

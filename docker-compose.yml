@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  nginx:
+    build: ./nginx
+    restart: on-failure:3
+    ports:
+      - 80:80
+    depends_on:
+      - web
+  web:
+    build: ./
+    restart: on-failure:3
+    command: gunicorn tochka_test.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 80
+    env_file:
+      - .env
+    depends_on:
+    - db
+  db:
+    image: postgres:12.0-alpine
+    restart: on-failure:3
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=tochka_admin
+      - POSTGRES_PASSWORD=tochka_pass
+      - POSTGRES_DB=tochka_test
+volumes:
+  postgres_data:
