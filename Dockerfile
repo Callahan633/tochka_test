@@ -16,10 +16,6 @@ RUN pip install -r requirements.txt
 COPY ./init_db.sh .
 # copy project
 COPY . .
-# copy cron job file to crontab
-COPY hold_substract_cron /etc/crontabs/root
-# run cron daemon
-CMD ["crond", "-f", "-d", "8"]
 RUN ["chmod", "+x", "/usr/src/app/init_db.sh"]
 # run init_db.sh
 ENTRYPOINT ["/usr/src/app/init_db.sh"]

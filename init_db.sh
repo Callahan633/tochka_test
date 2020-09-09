@@ -14,4 +14,5 @@ fi
 python manage.py flush --no-input
 python manage.py migrate
 python manage.py fill_db
+python manage.py substract_holds
 exec "$@"
